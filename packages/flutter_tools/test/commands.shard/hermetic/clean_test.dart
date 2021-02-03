@@ -49,10 +49,13 @@ void main() {
         projectUnderTest.ios.generatedXcodePropertiesFile.createSync(recursive: true);
         projectUnderTest.ios.generatedEnvironmentVariableExportScript.createSync(recursive: true);
         projectUnderTest.ios.compiledDartFramework.createSync(recursive: true);
+        projectUnderTest.ios.flutterPodspec.createSync(recursive: true);
 
         projectUnderTest.linux.ephemeralDirectory.createSync(recursive: true);
         projectUnderTest.macos.ephemeralDirectory.createSync(recursive: true);
         projectUnderTest.windows.ephemeralDirectory.createSync(recursive: true);
+        projectUnderTest.flutterPluginsFile.createSync(recursive: true);
+        projectUnderTest.flutterPluginsDependenciesFile.createSync(recursive: true);
       });
 
       testUsingContext('$CleanCommand removes build and .dart_tool and ephemeral directories, cleans Xcode', () async {
@@ -67,10 +70,14 @@ void main() {
         expect(projectUnderTest.ios.generatedXcodePropertiesFile.existsSync(), isFalse);
         expect(projectUnderTest.ios.generatedEnvironmentVariableExportScript.existsSync(), isFalse);
         expect(projectUnderTest.ios.compiledDartFramework.existsSync(), isFalse);
+        expect(projectUnderTest.ios.flutterPodspec.existsSync(), isFalse);
 
         expect(projectUnderTest.linux.ephemeralDirectory.existsSync(), isFalse);
         expect(projectUnderTest.macos.ephemeralDirectory.existsSync(), isFalse);
         expect(projectUnderTest.windows.ephemeralDirectory.existsSync(), isFalse);
+
+        expect(projectUnderTest.flutterPluginsFile.existsSync(), isFalse);
+        expect(projectUnderTest.flutterPluginsDependenciesFile.existsSync(), isFalse);
 
         verify(mockXcodeProjectInterpreter.cleanWorkspace(any, 'Runner', verbose: false)).called(2);
       }, overrides: <Type, Generator>{
